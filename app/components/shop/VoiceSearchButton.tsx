@@ -54,10 +54,10 @@ export default function VoiceSearchButton({ onResult }: Props) {
     <button
       type="button"
       onClick={handleClick}
-      className={`ml-2 flex items-center justify-center w-10 h-10 rounded-full border text-lg ${
+      className={`flex items-center justify-center w-12 h-12 rounded-xl border-2 text-xl transition-all duration-200 shadow-sm hover:shadow-md ${
         listening
-          ? "bg-emerald-600 text-white border-emerald-600"
-          : "bg-white text-emerald-700 border-emerald-500"
+          ? "bg-gradient-to-br from-red-500 to-red-600 text-white border-red-600 animate-pulse scale-110"
+          : "bg-white text-emerald-700 border-emerald-500 hover:bg-emerald-50 hover:scale-105"
       }`}
       title="Voice search (Hindi/Marathi/English)"
     >

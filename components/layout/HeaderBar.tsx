@@ -6,6 +6,7 @@ import { SHOP_MAP_URL, SHOP_NAME } from "@/lib/config";
 type Props = {
   cartCount: number;
   onCartClick: () => void;
+  onMenuToggle: () => void;
 };
 
 export default function HeaderBar({ cartCount, onCartClick }: Props) {

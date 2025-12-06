@@ -21,12 +21,15 @@ export default function SearchBar({ value, onChange }: Props) {
   const handleClear = () => onChange("");
 
   return (
-    <div className="flex items-center mb-4 gap-2">
+    <div className="flex items-center mb-6 gap-2">
       <div className="flex-1 relative">
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-600">
+          🔍
+        </div>
         <input
           type="search"
           placeholder="Search Harpic / अगरबत्ती / SCR-007..."
-          className="w-full p-3 pr-8 border rounded-lg text-sm bg-white outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+          className="w-full pl-10 pr-10 py-3 border-2 border-emerald-100 rounded-xl text-sm bg-white outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 shadow-sm hover:shadow-md"
           value={value}
           onChange={handleTextChange}
           onKeyDown={handleKeyDown}
@@ -36,7 +39,7 @@ export default function SearchBar({ value, onChange }: Props) {
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 hover:text-gray-700"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-400 hover:text-gray-700 hover:bg-gray-100 w-6 h-6 rounded-full flex items-center justify-center transition-all"
             aria-label="Clear search"
           >
             ✕

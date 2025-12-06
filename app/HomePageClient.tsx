@@ -11,6 +11,16 @@ import { useCart } from "@/hooks/useCart";
 import { filterProducts } from "@/lib/search";
 import type { Category, Product } from "@/lib/types";
 import { SHOP_WHATSAPP } from "@/lib/config";
+import Footer from "./components/layout/Footer";
+import SideMenu from "./components/layout/SideMenu";
+import HeroBanner from "./components/home/HeroBanner";
+import FeaturesSection from "./components/home/FeaturesSection";
+import OffersSection from "./components/home/OffersSection";
+import TestimonialsSection from "./components/home/TestimonialsSection";
+import QuickActionsBar from "./components/home/QuickActionsBar";
+import InfoSection from "./components/home/InfoSection";
+import ScrollToTop from "./components/common/ScrollToTop";
+import PromoBanner from "./components/common/PromoBanner";
 
 const categories: Category[] = [
   { name: "All", icon: "🛍️" },
@@ -36,6 +46,7 @@ export default function HomePageClient({ initialProducts }: Props) {
   const [customerName, setCustomerName] = useState("");
   const [address, setAddress] = useState("");
   const [paymentMode, setPaymentMode] = useState("Cash");
+const [menuOpen, setMenuOpen] = useState(false);
 
   const { items, total, addItem, updateQuantity, clearCart } =
     useCart();
@@ -90,12 +101,23 @@ export default function HomePageClient({ initialProducts }: Props) {
   };
 
   return (
-    <div className="relative min-h-screen bg-emerald-50">
-      <main className="p-4 pb-24 max-w-3xl mx-auto">
+    <div className="relative min-h-screen bg-gradient-to-b from-emerald-50 via-green-50 to-emerald-50">
+      <main className="p-5 pb-32 max-w-6xl mx-auto">
         <HeaderBar
           cartCount={items.length}
           onCartClick={() => setCartOpen(true)}
+          onMenuToggle={() => setMenuOpen(true)}
         />
+
+        <SideMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+
+        <PromoBanner />
+
+        <HeroBanner />
+
+        <FeaturesSection />
+
+        <OffersSection />
 
         <SearchBar value={search} onChange={setSearch} />
 
@@ -105,16 +127,40 @@ export default function HomePageClient({ initialProducts }: Props) {
           onSelect={setSelectedCategory}
         />
 
-        <section className="mt-4">
-          <h2 className="mb-2 text-sm font-semibold text-emerald-900">
-            Products
-          </h2>
+        <section className="mt-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-emerald-900 flex items-center gap-2">
+              <span className="text-2xl">🛒</span>
+              Browse Products
+            </h2>
+            <div className="bg-emerald-100 px-3 py-1 rounded-full">
+              <span className="text-sm font-bold text-emerald-700">
+                {filtered.length} items
+              </span>
+            </div>
+          </div>
+
           {filtered.length === 0 ? (
-            <p className="text-sm text-gray-500">
-              No items found. Try another name, SKU or category.
-            </p>
+            <div className="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-emerald-200 shadow-lg">
+              <div className="text-7xl mb-4 opacity-50">🔍</div>
+              <p className="text-lg text-gray-600 font-bold mb-2">
+                No items found
+              </p>
+              <p className="text-sm text-gray-500">
+                Try another name, SKU, or category
+              </p>
+              <button
+                onClick={() => {
+                  setSearch("");
+                  setSelectedCategory("All");
+                }}
+                className="mt-4 px-6 py-2 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-all"
+              >
+                Clear Filters
+              </button>
+            </div>
           ) : (
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {filtered.map((prod) => (
                 <ProductCard
                   key={prod.sku}
@@ -128,7 +174,18 @@ export default function HomePageClient({ initialProducts }: Props) {
             </div>
           )}
         </section>
+
+        <TestimonialsSection />
+
+        <InfoSection />
       </main>
+
+      <ScrollToTop />
+
+      <QuickActionsBar 
+        onViewCart={() => setCartOpen(true)}
+        cartCount={items.length}
+      />
 
       <CartDrawer
         open={cartOpen}
@@ -151,6 +208,8 @@ export default function HomePageClient({ initialProducts }: Props) {
         onClose={() => setShowCheckout(false)}
         onConfirm={handleCheckoutConfirm}
       />
+
+      <Footer />
     </div>
   );
 }

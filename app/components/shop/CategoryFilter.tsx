@@ -14,24 +14,25 @@ export default function CategoryFilter({
   onSelect,
 }: Props) {
   return (
-    <div>
-      <h2 className="mt-1 mb-2 text-sm font-semibold text-emerald-900">
+    <div className="mb-6">
+      <h2 className="mt-1 mb-3 text-sm font-bold text-emerald-900 flex items-center gap-2">
+        <span className="text-lg">🏪</span>
         Shop by Category
       </h2>
-      <div className="flex gap-2 overflow-x-auto pb-1">
+      <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
         {categories.map((cat) => {
           const isActive = cat.name === selected;
           return (
             <button
               key={cat.name}
               onClick={() => onSelect(cat.name)}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full border text-xs whitespace-nowrap ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                 isActive
-                  ? "bg-emerald-600 text-white border-emerald-600"
-                  : "bg-white text-gray-700 border-gray-300"
+                  ? "bg-gradient-to-r from-emerald-600 to-green-600 text-white border-emerald-600 shadow-lg scale-105"
+                  : "bg-white text-gray-700 border-emerald-200 hover:border-emerald-400 hover:shadow-md hover:scale-105"
               }`}
             >
-              <span>{cat.icon}</span>
+              <span className="text-lg">{cat.icon}</span>
               <span>{cat.name}</span>
             </button>
           );
